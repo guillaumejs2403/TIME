@@ -24,7 +24,7 @@ To download the BDD100k datasets [here](https://bdd-data.berkeley.edu/). To prep
 
 ### Training
 
-Before generating counterfactual explanations with TIME, first you need to extract the predictions of the target classifier. To do so, first, you need to run the `get_predictions.py` python code. The resulting output is a `.csv` file stored in the utils folder, where one column is the image filename and the other its respective prediction.
+Before generating counterfactual explanations with TIME, you first need to extract the predictions of the target classifier. To do so, first, you need to run the `get_predictions.py` python code. The resulting output is a `.csv` file stored in the utils folder, where one column is the image filename and the other its respective prediction.
 
 Once completed, you need to train the context and class-specific textual embeddings. To do so, you need to use the `training.py` python code. We based our code on [this](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/sd_textual_inversion_training.ipynb) jupyter notebook.
 
@@ -51,7 +51,7 @@ python training.py \
 
 Here, the SD model will learn the text embeddings linked with the `|<C*1>|`, `|<C*2>|`, and `|<C*3>|` text code. These embeddings will be warmed-up with the embeddings coupled with the words in `INITTOKENS`. The output is a small `.pth` file containing the token code and its learned text embedding.
 
-To train the class-related bias tokens, run the same code but changing the `--phase` flag to `class`, and the `--training-label` to 1 or 0:
+To train the class-related bias tokens, run the same code but change the `--phase` flag to `class`, and the `--training-label` to 1 or 0:
 ```bash
 DATASET=name-your-dataset
 PATHDATA=/path/to/data
@@ -131,7 +131,7 @@ python generate-ce.py \
     --data_dir $PATHDATA \
     --classifier_path $CLASSIFIERPATH
 ```
-The output system filenames is equal than the one in our previous paper [Adversarial Visual Counterfactual Explanations](https://github.com/guillaumejs2403/ACE). In this case, `STEPS` is the noise inversion level and `GS` the gradient scale.
+The output system filenames are equal to the one in our previous paper [Adversarial Visual Counterfactual Explanations](https://github.com/guillaumejs2403/ACE). In this case, `STEPS` is the noise inversion level, and `GS` is the gradient scale.
 
 ### Evaluation
 
